@@ -5,6 +5,12 @@ import songbird.task.Task;
 import songbird.task.TaskList;
 import songbird.ui.Ui;
 
+/**
+ * Represents a command to mark a task as not done in the task list.
+ *
+ * @author Ashe Low
+ * @version CS2103T AY24/25 Semester 2
+ */
 public class TaskUnmarkCommand extends Command {
     private final TaskList tasks;
     private final int taskIndex;
@@ -22,8 +28,8 @@ public class TaskUnmarkCommand extends Command {
     }
 
     /**
-     * Executes the Mark command.
-     * Marks the task at the specified index as done.
+     * Executes the Unmark command.
+     * Marks the task at the specified index as not done.
      */
     @Override
     public void execute() {

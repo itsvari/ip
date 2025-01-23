@@ -9,6 +9,7 @@ package songbird.exception;
 public class SongbirdNonExistentTaskException extends SongbirdException {
     /**
      * Constructor for the SongbirdNonExistentTaskException class.
+     * Initializes the exception with a default message.
      */
     public SongbirdNonExistentTaskException() {
         super("That task couldn't be found. Please try again.");

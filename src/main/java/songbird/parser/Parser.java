@@ -88,6 +88,14 @@ public class Parser {
         };
     }
 
+    /**
+     * Handles commands related to adding tasks.
+     *
+     * @param type           The type of command to be executed.
+     * @param taskParameters The parameters of the task to be added.
+     * @return The command object that corresponds to the user input.
+     * @throws SongbirdException If the task parameters are empty or malformed.
+     */
     private Command handleTaskAddCommands(CommandType type, String taskParameters) throws SongbirdException {
         if (taskParameters.isEmpty()) {
             throw new SongbirdMalformedCommandException("The description of a task cannot be empty.");

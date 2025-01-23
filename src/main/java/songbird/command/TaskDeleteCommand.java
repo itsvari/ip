@@ -5,6 +5,12 @@ import songbird.task.Task;
 import songbird.task.TaskList;
 import songbird.ui.Ui;
 
+/**
+ * Represents a command to delete a task from the task list.
+ *
+ * @author Ashe Low
+ * @version CS2103T AY24/25 Semester 2
+ */
 public class TaskDeleteCommand extends Command {
     private final TaskList tasks;
     private final int taskIndex;
