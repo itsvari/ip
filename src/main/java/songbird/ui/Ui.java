@@ -56,4 +56,15 @@ public class Ui {
             System.out.println("S> " + message);
         }
     }
+
+    /**
+     * Responds to the user with an error message.
+     *
+     * @param messages The error messages to respond with.
+     */
+    public static void error(String... messages) {
+        for (String message : messages) {
+            respond("ERROR: " + message);
+        }
+    }
 }
