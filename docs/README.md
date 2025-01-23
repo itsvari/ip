@@ -1,6 +1,4 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
+# Songbird User Guide
 
 // Product screenshot goes here
 
@@ -23,7 +21,6 @@ expected output
 ## Feature ABC
 
 // Feature details
-
 
 ## Feature XYZ
 
