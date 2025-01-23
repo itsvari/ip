@@ -1,4 +1,4 @@
-package songbird.commands;
+package songbird.command;
 
 /**
  * Represents a command that the user can input.

@@ -1,4 +1,4 @@
-package songbird.tasks;
+package songbird.task;
 
 /**
  * Represents a Task that the user wants to save.

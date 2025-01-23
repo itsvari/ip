@@ -1,8 +1,8 @@
 package songbird;
 
-import songbird.commands.Command;
+import songbird.command.Command;
 import songbird.parser.Parser;
-import songbird.tasks.TaskList;
+import songbird.task.TaskList;
 import songbird.ui.Ui;
 
 /**

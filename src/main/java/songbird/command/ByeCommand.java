@@ -1,4 +1,4 @@
-package songbird.commands;
+package songbird.command;
 
 import songbird.ui.Ui;
 

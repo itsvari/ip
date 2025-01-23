@@ -1,4 +1,4 @@
-package songbird.tasks;
+package songbird.task;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;

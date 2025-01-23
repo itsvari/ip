@@ -1,10 +1,10 @@
 package songbird.parser;
 
-import songbird.commands.ByeCommand;
-import songbird.commands.Command;
-import songbird.commands.ListCommand;
-import songbird.commands.TaskAddCommand;
-import songbird.tasks.TaskList;
+import songbird.command.ByeCommand;
+import songbird.command.Command;
+import songbird.command.ListCommand;
+import songbird.command.TaskAddCommand;
+import songbird.task.TaskList;
 
 /**
  * Represents a parser that parses user input into commands.
