@@ -15,7 +15,8 @@ public enum CommandType {
     DEADLINE,
     EVENT,
     MARK,
-    UNMARK;
+    UNMARK,
+    DELETE;
 
     public static CommandType fromString(String command) throws SongbirdInvalidCommandException {
         return switch (command.toLowerCase()) {
@@ -26,6 +27,7 @@ public enum CommandType {
             case "todo" -> TODO;
             case "deadline" -> DEADLINE;
             case "event" -> EVENT;
+            case "delete" -> DELETE;
             default -> throw new SongbirdInvalidCommandException();
         };
     }

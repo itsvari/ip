@@ -36,6 +36,21 @@ public class TaskList {
     }
 
     /**
+     * Deletes the specified task from the task list by index, if valid. Otherwise, throws a
+     * SongbirdNonExistentTaskException.
+     *
+     * @param index The index of the task to delete.
+     * @return The task that was deleted.
+     * @throws SongbirdNonExistentTaskException when the task is not found.
+     */
+    public Task deleteTask(int index) throws SongbirdNonExistentTaskException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new SongbirdNonExistentTaskException();
+        }
+        return this.tasks.remove(index);
+    }
+
+    /**
      * Returns the specified task from the task list by index, if valid. Otherwise, throws a
      * SongbirdNonExistentTaskException.
      *

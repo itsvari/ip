@@ -6,6 +6,7 @@ import songbird.command.CommandType;
 import songbird.command.DeadlineAddCommand;
 import songbird.command.EventAddCommand;
 import songbird.command.ListCommand;
+import songbird.command.TaskDeleteCommand;
 import songbird.command.TaskMarkCommand;
 import songbird.command.TaskUnmarkCommand;
 import songbird.command.ToDoAddCommand;
@@ -43,7 +44,12 @@ public class Parser {
         String[] inputArray = input.split(" ");
         CommandType commandType = CommandType.fromString(inputArray[0]);
 
-        // should never get here
+        // Check for index presence in MARK, UNMARK, and DELETE commands
+        if ((commandType == CommandType.MARK || commandType == CommandType.UNMARK || commandType == CommandType.DELETE)
+                && inputArray.length < 2) {
+            throw new SongbirdMalformedCommandException("You must specify a task to delete.");
+        }
+
         return switch (commandType) {
             case LIST -> new ListCommand(tasks);
             case BYE -> new ByeCommand();
@@ -54,6 +60,10 @@ public class Parser {
             case MARK, UNMARK -> {
                 int index = Integer.parseInt(inputArray[1]);
                 yield handleMarkingCommands(commandType, tasks, index);
+            }
+            case DELETE -> {
+                int index = Integer.parseInt(inputArray[1]);
+                yield new TaskDeleteCommand(tasks, index);
             }
         };
     }
