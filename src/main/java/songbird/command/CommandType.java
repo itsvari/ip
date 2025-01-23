@@ -1,5 +1,7 @@
 package songbird.command;
 
+import songbird.exception.SongbirdInvalidCommandException;
+
 /**
  * Represents the different types of commands that the user can input.
  *
@@ -9,17 +11,22 @@ package songbird.command;
 public enum CommandType {
     BYE,
     LIST,
-    TASK_ADD,
+    TODO,
+    DEADLINE,
+    EVENT,
     MARK,
     UNMARK;
 
-    public static CommandType fromString(String command) {
+    public static CommandType fromString(String command) throws SongbirdInvalidCommandException {
         return switch (command.toLowerCase()) {
             case "bye" -> BYE;
             case "list" -> LIST;
             case "mark" -> MARK;
             case "unmark" -> UNMARK;
-            default -> TASK_ADD;
+            case "todo" -> TODO;
+            case "deadline" -> DEADLINE;
+            case "event" -> EVENT;
+            default -> throw new SongbirdInvalidCommandException();
         };
     }
 }

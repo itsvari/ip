@@ -8,7 +8,8 @@ package songbird.task;
  * @author Ashe Low
  * @version CS2103T AY24/25 Semester 2
  */
-public class Task {
+public abstract class Task {
+    protected final TaskType TASK_TYPE;
     protected final String DESCRIPTION;
     protected boolean isDone;
 
@@ -18,8 +19,9 @@ public class Task {
      *
      * @param description The description of the Task.
      */
-    public Task(String description) {
-        this.DESCRIPTION = description;
+    public Task(TaskType taskType, String description) {
+        TASK_TYPE = taskType;
+        DESCRIPTION = description;
         isDone = false;
     }
 

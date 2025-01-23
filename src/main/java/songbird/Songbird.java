@@ -44,8 +44,13 @@ public class Songbird {
         ui.greet();
         while (true) {
             String command = ui.readCommand();
-            Command commandObject = parser.parse(command);
-            commandObject.execute();
+
+            try {
+                Command commandObject = parser.parse(command);
+                commandObject.execute();
+            } catch (Exception e) {
+                Ui.error(e.getMessage());
+            }
 
             // check for "bye" command and handle it
             if (command.equalsIgnoreCase("bye")) {
