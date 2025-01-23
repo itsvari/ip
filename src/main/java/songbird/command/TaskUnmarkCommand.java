@@ -30,7 +30,7 @@ public class TaskUnmarkCommand extends Command {
         try {
             Task retrievedTask = tasks.getTask(taskIndex);
             retrievedTask.setTaskNotDone();
-            Ui.respond("Task marked as not done:\n" + retrievedTask.toString());
+            Ui.respond("Task marked as not done:\n" + retrievedTask);
         } catch (SongbirdNonExistentTaskException e) {
             Ui.error(e.getMessage());
         }
