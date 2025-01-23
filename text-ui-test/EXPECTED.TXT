@@ -34,18 +34,27 @@ S> Your saved tasks are:
 1. [T][ ] Hack into MegaCorp mainframe
 2. [D][ ] Steal cybernetic blueprints (deadline: 2300 hours)
 3. [E][ ] Infiltrate NeuroTech facility (from: 0200 hours to: 0400 hours)
+S> Task deleted:
+[D][ ] Steal cybernetic blueprints (deadline: 2300 hours)
+S> You now have 2 tasks.
+S> Your saved tasks are:
+1. [T][ ] Hack into MegaCorp mainframe
+2. [E][ ] Infiltrate NeuroTech facility (from: 0200 hours to: 0400 hours)
+S> ERROR: That command was not formatted correctly: You must specify a task to delete.
+S> ERROR: That task couldn't be found. Please try again.
+S> ERROR: That task couldn't be found. Please try again.
 S> ERROR: That command was not formatted correctly: The description of a task cannot be empty.
 S> ERROR: That command was not formatted correctly: The deadline task must have a deadline.
 S> Deadline task added:
 [D][ ] Delete security footage (deadline: when the guards change shift)
-S> You now have 4 tasks.
+S> You now have 3 tasks.
 S> ERROR: That command was not formatted correctly: The event task must have a start and end time.
 S> Event task added:
 [E][ ] Cyber-arm maintenance (from: 1400 hours to: 1500 hours)
-S> You now have 5 tasks.
+S> You now have 4 tasks.
 S> Event task added:
 [E][ ] Black market deal (from: the usual spot to: the backup location)
-S> You now have 6 tasks.
+S> You now have 5 tasks.
 S> ERROR: That task couldn't be found. Please try again.
 S> ERROR: That task couldn't be found. Please try again.
 S> ERROR: That task couldn't be found. Please try again.
