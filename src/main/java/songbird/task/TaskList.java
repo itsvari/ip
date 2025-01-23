@@ -16,12 +16,23 @@ import java.util.stream.Collectors;
 public class TaskList {
     private final ArrayList<Task> tasks;
 
+    /**
+     * Constructor for the TaskList class. Initializes the task list with an empty ArrayList.
+     * The task list is used to store the user's tasks.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
     }
 
-    public void addTask(Task task) {
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     * @return The task that was added.
+     */
+    public Task addTask(Task task) {
         this.tasks.add(task);
+        return task;
     }
 
     /**
@@ -37,6 +48,15 @@ public class TaskList {
             throw new SongbirdNonExistentTaskException();
         }
         return this.tasks.get(index);
+    }
+
+    /**
+     * Returns the total size of the task list.
+     *
+     * @return The size of the task list.
+     */
+    public int getSize() {
+        return this.tasks.size();
     }
 
     /**
