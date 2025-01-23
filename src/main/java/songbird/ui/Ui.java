@@ -4,6 +4,9 @@ import java.util.Scanner;
 
 /**
  * Handles the user interface of the Songbird chatbot, including input and output.
+ *
+ * @author Ashe Low
+ * @version CS2103T AY24/25 Semester 2
  */
 public class Ui {
     private static final String ASCII_ART_LOGO = """
@@ -23,16 +26,20 @@ public class Ui {
     public void greet() {
         System.out.println(ASCII_ART_LOGO);
         System.out.println("Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.");
+        System.out.println("We know exactly what you're thinking. Don't worry, we won't judge.");
         System.out.println("--------------------");
-        this.respond("How can I help?");
+        respond("How can I help?");
     }
 
     /**
      * Reads the user's command from the console input.
+     * <p>
+     * Prints "U> " to prompt the user for input, then reads the user's input as a String.
      *
      * @return The user's command.
      */
     public String readCommand() {
+        System.out.print("U> ");
         return input.nextLine();
     }
 
@@ -44,7 +51,7 @@ public class Ui {
      *
      * @param messages The messages to respond with.
      */
-    public void respond(String... messages) {
+    public static void respond(String... messages) {
         for (String message : messages) {
             System.out.println("S> " + message);
         }
