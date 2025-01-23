@@ -9,5 +9,17 @@ package songbird.command;
 public enum CommandType {
     BYE,
     LIST,
-    TASK_ADD
+    TASK_ADD,
+    MARK,
+    UNMARK;
+
+    public static CommandType fromString(String command) {
+        return switch (command.toLowerCase()) {
+            case "bye" -> BYE;
+            case "list" -> LIST;
+            case "mark" -> MARK;
+            case "unmark" -> UNMARK;
+            default -> TASK_ADD;
+        };
+    }
 }
