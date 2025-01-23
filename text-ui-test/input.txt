@@ -1,0 +1,23 @@
+list
+todo Hack into MegaCorp mainframe
+deadline Steal cybernetic blueprints /by 2300 hours
+event Infiltrate NeuroTech facility /from 0200 hours /to 0400 hours
+list
+mark 2
+list
+unmark 2
+list
+todo
+deadline Submit corporate espionage report
+deadline Delete security footage /by when the guards change shift
+event Underground netrunner meetup /from midnight /to
+event Cyber-arm maintenance /to 1500 hours /from 1400 hours
+event Black market deal /from the usual spot /to the backup location
+mark 0
+mark 10
+unmark 15
+invalid_command
+todo
+deadline
+event
+bye

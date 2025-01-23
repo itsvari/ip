@@ -33,13 +33,10 @@ public class Ui {
 
     /**
      * Reads the user's command from the console input.
-     * <p>
-     * Prints "U> " to prompt the user for input, then reads the user's input as a String.
      *
      * @return The user's command.
      */
     public String readCommand() {
-        System.out.print("U> ");
         return input.nextLine();
     }
 
