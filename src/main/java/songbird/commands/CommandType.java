@@ -9,5 +9,5 @@ package songbird.commands;
 public enum CommandType {
     BYE,
     LIST,
-    TASK_ADD;
+    TASK_ADD
 }
