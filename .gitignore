@@ -8,10 +8,59 @@
 /build/
 src/main/resources/docs/
 
-# MacOS custom attributes files created by Finder
-.DS_Store
 *.iml
 bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Java
+## Compiled class file
+*.class
+
+## Log file
+*.log
+
+## BlueJ files
+*.ctxt
+
+## Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+## Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+## Virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# macOS-specific files
+## General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+## Thumbnails
+._*
+
+## Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+## Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
