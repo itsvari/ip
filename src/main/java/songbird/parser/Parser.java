@@ -2,8 +2,11 @@ package songbird.parser;
 
 import songbird.command.ByeCommand;
 import songbird.command.Command;
+import songbird.command.CommandType;
 import songbird.command.ListCommand;
 import songbird.command.TaskAddCommand;
+import songbird.command.TaskMarkCommand;
+import songbird.command.TaskUnmarkCommand;
 import songbird.task.TaskList;
 
 /**
@@ -33,13 +36,40 @@ public class Parser {
      * @return The command object that corresponds to the user input.
      */
     public Command parse(String input) {
-        switch (input.toLowerCase()) {
-        case "list":
+        String[] inputArray = input.split(" ");
+        CommandType commandType;
+        commandType = CommandType.fromString(inputArray[0]);
+
+        switch (commandType) {
+        case LIST:
             return new ListCommand(tasks);
-        case "bye":
+        case BYE:
             return new ByeCommand();
+        case MARK:
+        case UNMARK:
+            int index = Integer.parseInt(inputArray[1]);
+            return handleMarkingCommands(commandType, tasks, index);
         default:
             return new TaskAddCommand(tasks, input);
         }
+    }
+
+    /**
+     * Handles marking and unmarking commands.
+     * The method creates the appropriate command object based on the command type. Should only be called for marking
+     * and unmarking commands.
+     *
+     * @param commandType The type of command to be executed.
+     * @param tasks       The TaskList object that stores the user's tasks.
+     * @param index       The index of the task to be marked or unmarked.
+     * @return The command object that corresponds to the user input.
+     */
+    private Command handleMarkingCommands(CommandType commandType, TaskList tasks, int index) {
+        index = index - 1; // convert to 0-based indexing for internal use
+        return switch (commandType) {
+            case MARK -> new TaskMarkCommand(tasks, index);
+            case UNMARK -> new TaskUnmarkCommand(tasks, index);
+            default -> throw new IllegalStateException("Unexpected value: " + commandType); // should never get here
+        };
     }
 }

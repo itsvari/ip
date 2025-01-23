@@ -1,5 +1,7 @@
 package songbird.task;
 
+import songbird.exception.SongbirdNonExistentTaskException;
+
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -22,7 +24,18 @@ public class TaskList {
         this.tasks.add(task);
     }
 
-    public Task getTask(int index) {
+    /**
+     * Returns the specified task from the task list by index, if valid. Otherwise, throws a
+     * SongbirdNonExistentTaskException.
+     *
+     * @param index The index of the task to get.
+     * @return The specified task.
+     * @throws SongbirdNonExistentTaskException when the task is not found.
+     */
+    public Task getTask(int index) throws SongbirdNonExistentTaskException {
+        if (index < 0 || index >= tasks.size()) {
+            throw new SongbirdNonExistentTaskException();
+        }
         return this.tasks.get(index);
     }
 
