@@ -37,6 +37,6 @@ public class ToDoAddCommand extends Command {
     @Override
     public void execute() {
         Task addedTask = tasks.addTask(new ToDoTask(taskDescription));
-        Ui.respond("ToDo task added:\n" + addedTask, "You now have " + tasks.getSize() + " tasks.");
+        Ui.respond("ToDo task added:\n" + addedTask, tasks.getTaskCountMessage());
     }
 }

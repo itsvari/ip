@@ -40,6 +40,6 @@ public class DeadlineAddCommand extends Command {
     @Override
     public void execute() {
         Task addedTask = tasks.addTask(new DeadlineTask(taskDescription, deadline));
-        Ui.respond("Deadline task added:\n" + addedTask, "You now have " + tasks.getSize() + " tasks.");
+        Ui.respond("Deadline task added:\n" + addedTask, tasks.getTaskCountMessage());
     }
 }

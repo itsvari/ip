@@ -35,7 +35,7 @@ public class TaskDeleteCommand extends Command {
     public void execute() {
         try {
             Task deletedTask = tasks.deleteTask(taskIndex);
-            Ui.respond("Task deleted:\n" + deletedTask, "You now have " + tasks.getSize() + " tasks.");
+            Ui.respond("Task deleted:\n" + deletedTask, tasks.getTaskCountMessage());
         } catch (SongbirdNonExistentTaskException e) {
             Ui.error(e.getMessage());
         }

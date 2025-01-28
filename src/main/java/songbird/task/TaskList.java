@@ -74,6 +74,10 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    public String getTaskCountMessage() {
+        return "You now have " + getSize() + " task(s).";
+    }
+
     /**
      * Returns a String representation of all the tasks in the TaskList.
      *
