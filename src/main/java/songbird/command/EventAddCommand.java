@@ -42,6 +42,6 @@ public class EventAddCommand extends Command {
     @Override
     public void execute() {
         Task addedTask = tasks.addTask(new EventTask(taskDescription, eventStart, eventEnd));
-        Ui.respond("Event task added:\n" + addedTask, "You now have " + tasks.getSize() + " tasks.");
+        Ui.respond("Event task added:\n" + addedTask, tasks.getTaskCountMessage());
     }
 }
