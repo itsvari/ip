@@ -23,16 +23,6 @@ public class Songbird {
     private TaskList tasks;
 
     /**
-     * Entry point of the Songbird chatbot.
-     *
-     * @param args Command line arguments.
-     */
-    public static void main(String[] args) {
-        Songbird songbird = new Songbird();
-        songbird.init();
-    }
-
-    /**
      * Constructor for the Songbird chatbot.
      */
     public Songbird() {
@@ -52,6 +42,16 @@ public class Songbird {
             Ui.error("Failed to initialize storage: " + e.getMessage());
             System.exit(1);
         }
+    }
+
+    /**
+     * Entry point of the Songbird chatbot.
+     *
+     * @param args Command line arguments.
+     */
+    public static void main(String[] args) {
+        Songbird songbird = new Songbird();
+        songbird.init();
     }
 
     /**
