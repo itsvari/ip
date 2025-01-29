@@ -1,5 +1,6 @@
 package songbird;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import songbird.command.Command;
@@ -19,6 +20,7 @@ import songbird.ui.Ui;
 public class Songbird {
     private Ui ui;
     private Parser parser;
+    private TaskList tasks;
 
     /**
      * Entry point of the Songbird chatbot.
@@ -44,9 +46,8 @@ public class Songbird {
                 Ui.respond("Found " + loadedTasks.size() + " previously-saved task(s).");
             }
 
-            TaskList tasks = new TaskList(loadedTasks, storage);
+            tasks = new TaskList(loadedTasks, storage);
             this.parser = new Parser(tasks);
-            init();
         } catch (SongbirdStorageException e) {
             Ui.error("Failed to initialize storage: " + e.getMessage());
             System.exit(1);
@@ -60,6 +61,9 @@ public class Songbird {
      */
     private void init() {
         ui.greet();
+
+        // show a reminder for tasks due or occurring today
+        showTodayReminder();
         while (true) {
             String command = ui.readCommand();
 
@@ -75,5 +79,24 @@ public class Songbird {
                 break;
             }
         }
+    }
+
+    /**
+     * Shows a reminder for tasks that are due or occurring on the current date as a reminder whenever Songbird is
+     * initialized.
+     */
+    private void showTodayReminder() {
+        LocalDate today = LocalDate.now();
+        List<Task> tasksDueToday = tasks.getTasksByDate(today);
+
+        if (!tasksDueToday.isEmpty()) {
+            Ui.respond("REMINDER :: You have task(s) happening today (" + today + "):");
+            int counter = 1;
+            for (Task task : tasksDueToday) {
+                Ui.respond(counter + ". " + task.toString());
+                counter++;
+            }
+        }
+
     }
 }

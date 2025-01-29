@@ -28,7 +28,6 @@ public class Ui {
         System.out.println("Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.");
         System.out.println("We know exactly what you're thinking. Don't worry, we won't judge.");
         System.out.println("--------------------");
-        respond("How can I help?");
     }
 
     /**
