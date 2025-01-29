@@ -61,7 +61,7 @@ public class Ui {
      */
     public static void error(String... messages) {
         for (String message : messages) {
-            respond("ERROR: " + message);
+            respond("ERROR :: " + message);
         }
     }
 }
