@@ -539,4 +539,80 @@ public class TaskListTest {
         assertEquals(1, taskList.getSize(),
                 "Modifying the returned list should not affect the original TaskList.");
     }
+
+    /**
+     * Tests retrieving tasks by keyword when the list is empty.
+     * Verifies that an empty list is returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_noTasks() {
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("book");
+
+        // Assert
+        assertTrue(tasksWithKeyword.isEmpty(), "getTasksByKeyword should return an empty list when there are no tasks.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with no matching tasks.
+     * Verifies that an empty list is returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_noMatchingTasks() {
+        // Arrange
+        taskList.addTask(new ToDoTask("Read a book"));
+        taskList.addTask(new ToDoTask("Write code"));
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("exercise");
+
+        // Assert
+        assertTrue(tasksWithKeyword.isEmpty(), "getTasksByKeyword should return an empty list when there are no matching tasks.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with matching tasks.
+     * Verifies that the correct tasks are returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_matchingTasks() {
+        // Arrange
+        Task task1 = new ToDoTask("Read a book");
+        Task task2 = new ToDoTask("Write code");
+        Task task3 = new ToDoTask("Read another book");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addTask(task3);
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("book");
+
+        // Assert
+        assertEquals(2, tasksWithKeyword.size(), "getTasksByKeyword should return two tasks.");
+        assertTrue(tasksWithKeyword.contains(task1), "The list should contain the first task.");
+        assertTrue(tasksWithKeyword.contains(task3), "The list should contain the third task.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with case-insensitive matching.
+     * Verifies that the correct tasks are returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_caseInsensitive() {
+        // Arrange
+        Task task1 = new ToDoTask("Read a Book");
+        Task task2 = new ToDoTask("Write code");
+        Task task3 = new ToDoTask("Read another book");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addTask(task3);
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("BOOK");
+
+        // Assert
+        assertEquals(2, tasksWithKeyword.size(), "getTasksByKeyword should return two tasks.");
+        assertTrue(tasksWithKeyword.contains(task1), "The list should contain the first task.");
+        assertTrue(tasksWithKeyword.contains(task3), "The list should contain the third task.");
+    }
 }
