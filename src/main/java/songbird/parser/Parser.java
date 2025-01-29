@@ -1,9 +1,13 @@
 package songbird.parser;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import songbird.command.ByeCommand;
 import songbird.command.Command;
 import songbird.command.CommandType;
 import songbird.command.DeadlineAddCommand;
+import songbird.command.DueCommand;
 import songbird.command.EventAddCommand;
 import songbird.command.ListCommand;
 import songbird.command.TaskDeleteCommand;
@@ -41,21 +45,19 @@ public class Parser {
      * @return The command object that corresponds to the user input.
      */
     public Command parse(String input) throws SongbirdException {
-        String[] inputArray = input.split(" ");
+        String[] inputArray = input.trim().split("\\s+", 2);
         CommandType commandType = CommandType.fromString(inputArray[0]);
-
-        // Check for index presence in MARK, UNMARK, and DELETE commands
-        if ((commandType == CommandType.MARK || commandType == CommandType.UNMARK || commandType == CommandType.DELETE)
-                && inputArray.length < 2) {
-            throw new SongbirdMalformedCommandException("You must specify a task to delete.");
-        }
 
         return switch (commandType) {
             case LIST -> new ListCommand(tasks);
             case BYE -> new ByeCommand();
             case DEADLINE, EVENT, TODO -> {
-                String taskParameters = input.substring(inputArray[0].length()).trim();
-                yield handleTaskAddCommands(commandType, taskParameters);
+                // Check if the task description is empty
+                if (inputArray.length < 2 || inputArray[1].isBlank()) {
+                    throw new SongbirdMalformedCommandException("The description of a task cannot be empty.");
+                }
+
+                yield handleTaskAddCommands(commandType, inputArray[1]);
             }
             case MARK, UNMARK -> {
                 if (inputArray.length < 2) {
@@ -72,6 +74,14 @@ public class Parser {
 
                 int index = Integer.parseInt(inputArray[1]) - 1; // convert to 0-based indexing for internal use
                 yield new TaskDeleteCommand(tasks, index);
+            }
+            case DUE -> {
+                if (inputArray.length < 2) {
+                    throw new SongbirdMalformedCommandException("You must specify a date, e.g. 'due 2025-01-17'.");
+                }
+
+                LocalDate date = DateTimeParser.parseDate(inputArray[1]);
+                yield new DueCommand(tasks, date);
             }
         };
     }
@@ -98,37 +108,39 @@ public class Parser {
     /**
      * Handles commands related to adding tasks.
      *
-     * @param type           The type of command to be executed.
+     * @param commandType    The type of command to be executed.
      * @param taskParameters The parameters of the task to be added.
      * @return The command object that corresponds to the user input.
      * @throws SongbirdException If the task parameters are empty or malformed.
      */
-    private Command handleTaskAddCommands(CommandType type, String taskParameters) throws SongbirdException {
-        if (taskParameters.isEmpty()) {
-            throw new SongbirdMalformedCommandException("The description of a task cannot be empty.");
-        }
-        return switch (type) {
+    private Command handleTaskAddCommands(CommandType commandType, String taskParameters) throws SongbirdException {
+        return switch (commandType) {
             case TODO -> new ToDoAddCommand(tasks, taskParameters);
+
             case DEADLINE -> {
+                // must be in format: <DESCRIPTION> /by <DEADLINE>
                 String[] parts = taskParameters.split(" /by ", 2);
 
                 // Check if the deadline task has a deadline
                 if (parts.length < 2 || parts[1].isEmpty()) {
-                    throw new SongbirdMalformedCommandException("The deadline task must have a deadline.");
+                    throw new SongbirdMalformedCommandException("The deadline task must have a deadline, formatted as "
+                            + "'/by YYYY-MM-DD' (e.g. 2025-01-30).");
                 }
 
-                String deadlineDescription = parts[0];
-                String deadline = parts[1];
-                yield new DeadlineAddCommand(tasks, deadlineDescription, deadline);
+                String description = parts[0].trim();
+                LocalDateTime deadline = DateTimeParser.parseDateTime(parts[1].trim());
+                yield new DeadlineAddCommand(tasks, description, deadline);
             }
+
             case EVENT -> {
                 String eventDescription;
-                String eventStart;
-                String eventEnd;
+                String eventStartString;
+                String eventEndString;
 
-                // Check if /from and /to are present
+                // must be in format: <DESCRIPTION> /from <START> /to <END>
                 if (!taskParameters.contains(" /from ") || !taskParameters.contains(" /to ")) {
-                    throw new SongbirdMalformedCommandException("The event task must have a start and end time.");
+                    throw new SongbirdMalformedCommandException("The event task must have a start and end time, "
+                            + "formatted as '/from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM'.");
                 }
 
                 // Split the taskParameters string
@@ -140,18 +152,22 @@ public class Parser {
                     // if /from comes before /to
                     eventDescription = fromParts[0].trim();
                     toParts = fromParts[1].split(" /to ", 2);
-                    eventStart = toParts[0].trim();
+                    eventStartString = toParts[0].trim();
                 } else {
                     // if /to comes before /from
-                    eventStart = fromParts[1].trim();
+                    eventStartString = fromParts[1].trim();
                     toParts = fromParts[0].split(" /to ", 2);
                     eventDescription = toParts[0].trim();
                 }
-                eventEnd = toParts[1].trim();
+                eventEndString = toParts[1].trim();
+
+                LocalDateTime eventStart = DateTimeParser.parseDateTime(eventStartString);
+                LocalDateTime eventEnd = DateTimeParser.parseDateTime(eventEndString);
 
                 yield new EventAddCommand(tasks, eventDescription, eventStart, eventEnd);
             }
-            default -> throw new IllegalStateException("Unexpected command type: " + type); // should never get here
+            default ->
+                    throw new IllegalStateException("Unexpected command type: " + commandType); // should never get here
         };
     }
 }

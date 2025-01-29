@@ -1,5 +1,7 @@
 package songbird.command;
 
+import java.time.LocalDateTime;
+
 import songbird.task.DeadlineTask;
 import songbird.task.Task;
 import songbird.task.TaskList;
@@ -19,14 +21,16 @@ import songbird.ui.Ui;
 public class DeadlineAddCommand extends Command {
     private final String taskDescription;
     private final TaskList tasks;
-    private final String deadline;
+    private final LocalDateTime deadline;
 
     /**
-     * Constructor for the TaskAddCommand class. Initializes the command with the given task description.
+     * Creates a new DeadlineAddCommand with the given task description and deadline.
      *
+     * @param tasks           The TaskList instance to which the task is to be added.
      * @param taskDescription The description of the task to be added.
+     * @param deadline        The deadline of the task to be added.
      */
-    public DeadlineAddCommand(TaskList tasks, String taskDescription, String deadline) {
+    public DeadlineAddCommand(TaskList tasks, String taskDescription, LocalDateTime deadline) {
         super(CommandType.DEADLINE, "deadline", "Adds a new Deadline task to the task list.");
         this.tasks = tasks;
         this.taskDescription = taskDescription;

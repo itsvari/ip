@@ -1,5 +1,6 @@
 package songbird.task;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -124,6 +125,33 @@ public class TaskList {
      */
     public String getTaskCountMessage() {
         return "You now have " + getSize() + " task(s).";
+    }
+
+    /**
+     * Returns tasks that occur on the specified date:
+     * - For Deadline tasks, the deadline must be on the specified date.
+     * - For Event tasks, the event must start or end on the specified date.
+     * If there are no tasks that match the criteria, an empty list is returned.
+     *
+     * @param date The date to filter tasks by.
+     *             The time component of the date is ignored.
+     * @return A list of tasks that occur on the specified date.
+     */
+    public List<Task> getTasksByDate(LocalDate date) {
+        return this.tasks.stream()
+                .filter(task -> {
+                    if (task instanceof DeadlineTask dt) {
+                        return dt.getDeadline().toLocalDate().isEqual(date);
+                    } else if (task instanceof EventTask et) {
+                        LocalDate start = et.getEventStart().toLocalDate();
+                        LocalDate end = et.getEventEnd().toLocalDate();
+                        // check if current date is between start and end (inclusive)
+                        return !date.isBefore(start) && !date.isAfter(end);
+                    }
+                    // ignore other task types
+                    return false;
+                })
+                .collect(Collectors.toList());
     }
 
     /**
