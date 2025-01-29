@@ -9,6 +9,7 @@ import songbird.command.CommandType;
 import songbird.command.DeadlineAddCommand;
 import songbird.command.DueCommand;
 import songbird.command.EventAddCommand;
+import songbird.command.FindCommand;
 import songbird.command.ListCommand;
 import songbird.command.TaskDeleteCommand;
 import songbird.command.TaskMarkCommand;
@@ -59,7 +60,16 @@ public class Parser {
 
                 yield handleTaskAddCommands(commandType, inputArray[1]);
             }
+            case FIND -> {
+                // Check if the keyword is empty
+                if (inputArray.length < 2) {
+                    throw new SongbirdMalformedCommandException("You must specify a keyword to search for.");
+                }
+
+                yield new FindCommand(tasks, inputArray[1]);
+            }
             case MARK, UNMARK -> {
+                // Check if the task number is empty
                 if (inputArray.length < 2) {
                     throw new SongbirdMalformedCommandException("You must specify a task number to modify.");
                 }
@@ -68,6 +78,7 @@ public class Parser {
                 yield handleMarkingCommands(commandType, tasks, index);
             }
             case DELETE -> {
+                // Check if the task number is empty
                 if (inputArray.length < 2) {
                     throw new SongbirdMalformedCommandException("You must specify a task number to delete.");
                 }
@@ -76,6 +87,7 @@ public class Parser {
                 yield new TaskDeleteCommand(tasks, index);
             }
             case DUE -> {
+                // Check if the date is empty
                 if (inputArray.length < 2) {
                     throw new SongbirdMalformedCommandException("You must specify a date, e.g. 'due 2025-01-17'.");
                 }

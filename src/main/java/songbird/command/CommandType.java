@@ -17,7 +17,8 @@ public enum CommandType {
     MARK,
     UNMARK,
     DELETE,
-    DUE;
+    DUE,
+    FIND;
 
     /**
      * Returns the CommandType corresponding to the given string.
@@ -38,6 +39,7 @@ public enum CommandType {
             case "event" -> EVENT;
             case "delete" -> DELETE;
             case "due" -> DUE;
+            case "find" -> FIND;
             default -> throw new SongbirdInvalidCommandException();
         };
     }

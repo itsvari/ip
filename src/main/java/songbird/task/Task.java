@@ -31,6 +31,15 @@ public abstract class Task implements Serializable {
     }
 
     /**
+     * Returns the description of the Task.
+     *
+     * @return The description of the Task.
+     */
+    public String getDescription() {
+        return DESCRIPTION;
+    }
+
+    /**
      * Sets the Task as done.
      */
     public void setTaskDone() {

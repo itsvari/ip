@@ -155,6 +155,19 @@ public class TaskList {
     }
 
     /**
+     * Returns tasks that contain the specified keyword in their description (case-insensitive).
+     * If there are no tasks that match the criteria, an empty list is returned.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that contain the specified keyword.
+     */
+    public List<Task> getTasksByKeyword(String keyword) {
+        return this.tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Returns a String representation of all the tasks in the TaskList.
      *
      * @return A String representation of all the tasks in the TaskList.
