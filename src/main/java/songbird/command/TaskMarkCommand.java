@@ -19,7 +19,7 @@ public class TaskMarkCommand extends Command {
      * Constructor for the MarkCommand class.
      * Initializes the Mark command with the type, friendly name, and description.
      *
-     * @param taskIndex The index of the task to be marked as done.
+     * @param taskIndex The index of the task to be marked as done, 0-indexed.
      */
     public TaskMarkCommand(TaskList tasks, int taskIndex) {
         super(CommandType.MARK, "mark", "Marks a task as done.");

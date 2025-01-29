@@ -58,11 +58,19 @@ public class Parser {
                 yield handleTaskAddCommands(commandType, taskParameters);
             }
             case MARK, UNMARK -> {
-                int index = Integer.parseInt(inputArray[1]);
+                if (inputArray.length < 2) {
+                    throw new SongbirdMalformedCommandException("You must specify a task number to modify.");
+                }
+
+                int index = Integer.parseInt(inputArray[1]) - 1; // convert to 0-based indexing for internal use
                 yield handleMarkingCommands(commandType, tasks, index);
             }
             case DELETE -> {
-                int index = Integer.parseInt(inputArray[1]);
+                if (inputArray.length < 2) {
+                    throw new SongbirdMalformedCommandException("You must specify a task number to delete.");
+                }
+
+                int index = Integer.parseInt(inputArray[1]) - 1; // convert to 0-based indexing for internal use
                 yield new TaskDeleteCommand(tasks, index);
             }
         };
@@ -75,11 +83,10 @@ public class Parser {
      *
      * @param commandType The type of command to be executed.
      * @param tasks       The TaskList object that stores the user's tasks.
-     * @param index       The index of the task to be marked or unmarked.
+     * @param index       The index of the task to be marked or unmarked, 0-indexed.
      * @return The command object that corresponds to the user input.
      */
     private Command handleMarkingCommands(CommandType commandType, TaskList tasks, int index) {
-        index = index - 1; // convert to 0-based indexing for internal use
         return switch (commandType) {
             case MARK -> new TaskMarkCommand(tasks, index);
             case UNMARK -> new TaskUnmarkCommand(tasks, index);
