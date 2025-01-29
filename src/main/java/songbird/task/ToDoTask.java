@@ -1,5 +1,8 @@
 package songbird.task;
 
+/**
+ * Represents a ToDoTask.
+ */
 public class ToDoTask extends Task {
     /**
      * Constructor for the ToDoTask class. Initializes the task with the given description.

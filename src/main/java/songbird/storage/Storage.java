@@ -20,6 +20,14 @@ import songbird.ui.Ui;
 public class Storage {
     private final File databaseFile;
 
+    /**
+     * Constructs a new Storage object with the given file path.
+     * If the file path does not exist, the directory will be created.
+     * If the directory cannot be created, a SongbirdStorageException is thrown.
+     *
+     * @param filePath The file path to the storage file
+     * @throws SongbirdStorageException If the directory cannot be created
+     */
     public Storage(String filePath) throws SongbirdStorageException {
         File directory = new File(filePath).getParentFile();
         this.databaseFile = new File(filePath);
