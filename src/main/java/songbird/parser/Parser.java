@@ -120,7 +120,7 @@ public class Parser {
                 String eventEnd;
 
                 // Check if /from and /to are present
-                if (! taskParameters.contains(" /from ") || ! taskParameters.contains(" /to ")) {
+                if (!taskParameters.contains(" /from ") || !taskParameters.contains(" /to ")) {
                     throw new SongbirdMalformedCommandException("The event task must have a start and end time.");
                 }
 

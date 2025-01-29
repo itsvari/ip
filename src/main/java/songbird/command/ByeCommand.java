@@ -26,5 +26,6 @@ public class ByeCommand extends Command {
     @Override
     public void execute() {
         Ui.respond("Goodbye. Remember: I'm always listening.");
+        System.exit(0);
     }
 }

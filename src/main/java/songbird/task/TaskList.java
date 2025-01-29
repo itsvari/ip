@@ -1,9 +1,13 @@
 package songbird.task;
 
-import songbird.exception.SongbirdNonExistentTaskException;
-
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
+
+import songbird.exception.SongbirdNonExistentTaskException;
+import songbird.exception.SongbirdStorageException;
+import songbird.storage.Storage;
+import songbird.ui.Ui;
 
 /**
  * Represents a list of tasks that the user has saved.
@@ -15,13 +19,27 @@ import java.util.stream.Collectors;
  */
 public class TaskList {
     private final ArrayList<Task> tasks;
+    private final Storage storage;
 
     /**
-     * Constructor for the TaskList class. Initializes the task list with an empty ArrayList.
-     * The task list is used to store the user's tasks.
+     * Creates a TaskList with no initial tasks and the specified storage.
+     *
+     * @param storage The Storage instance to be used by the TaskList for persistence.
      */
-    public TaskList() {
+    public TaskList(Storage storage) {
         this.tasks = new ArrayList<>();
+        this.storage = storage;
+    }
+
+    /**
+     * Creates a TaskList with the specified initial tasks and storage.
+     *
+     * @param initialTasks The initial tasks to be added to the TaskList.
+     * @param storage      The Storage instance to be used by the TaskList for persistence.
+     */
+    public TaskList(List<Task> initialTasks, Storage storage) {
+        this.tasks = new ArrayList<>(initialTasks);
+        this.storage = storage;
     }
 
     /**
@@ -32,6 +50,7 @@ public class TaskList {
      */
     public Task addTask(Task task) {
         this.tasks.add(task);
+        this.saveList();
         return task;
     }
 
@@ -47,7 +66,22 @@ public class TaskList {
         if (index < 0 || index >= tasks.size()) {
             throw new SongbirdNonExistentTaskException();
         }
-        return this.tasks.remove(index);
+        Task deletedTask = this.tasks.remove(index);
+        this.saveList();
+
+        return deletedTask;
+    }
+
+    /**
+     * Saves the updated task list to persistent storage.
+     * If there are any errors saving the task list, an error message is displayed.
+     */
+    public void saveList() {
+        try {
+            storage.save(getAll());
+        } catch (SongbirdStorageException e) {
+            Ui.error("Failed to save tasks: " + e.getMessage());
+        }
     }
 
     /**
@@ -66,6 +100,15 @@ public class TaskList {
     }
 
     /**
+     * Returns all tasks in the task list.
+     *
+     * @return A copy of the task list.
+     */
+    private List<Task> getAll() {
+        return new ArrayList<>(tasks);  // return a copy to maintain encapsulation
+    }
+
+    /**
      * Returns the total size of the task list.
      *
      * @return The size of the task list.
@@ -74,6 +117,11 @@ public class TaskList {
         return this.tasks.size();
     }
 
+    /**
+     * Returns a count of the number of tasks in the TaskList.
+     *
+     * @return A message indicating the number of tasks in the TaskList.
+     */
     public String getTaskCountMessage() {
         return "You now have " + getSize() + " task(s).";
     }

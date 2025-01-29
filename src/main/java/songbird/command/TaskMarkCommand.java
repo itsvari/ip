@@ -37,6 +37,7 @@ public class TaskMarkCommand extends Command {
             Task retrievedTask = tasks.getTask(taskIndex);
             retrievedTask.setTaskDone();
             Ui.respond("Task marked as done:\n" + retrievedTask);
+            tasks.saveList();
         } catch (SongbirdNonExistentTaskException e) {
             Ui.error(e.getMessage());
         }
