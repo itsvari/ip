@@ -550,7 +550,8 @@ public class TaskListTest {
         List<Task> tasksWithKeyword = taskList.getTasksByKeyword("book");
 
         // Assert
-        assertTrue(tasksWithKeyword.isEmpty(), "getTasksByKeyword should return an empty list when there are no tasks.");
+        assertTrue(tasksWithKeyword.isEmpty(),
+                "getTasksByKeyword should return an empty list when there are no tasks.");
     }
 
     /**
@@ -567,7 +568,8 @@ public class TaskListTest {
         List<Task> tasksWithKeyword = taskList.getTasksByKeyword("exercise");
 
         // Assert
-        assertTrue(tasksWithKeyword.isEmpty(), "getTasksByKeyword should return an empty list when there are no matching tasks.");
+        assertTrue(tasksWithKeyword.isEmpty(),
+                "getTasksByKeyword should return an empty list when there are no matching tasks.");
     }
 
     /**
