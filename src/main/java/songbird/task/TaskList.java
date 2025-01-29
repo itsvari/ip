@@ -106,7 +106,7 @@ public class TaskList {
      * @return A copy of the task list.
      */
     List<Task> getAll() {
-        return new ArrayList<>(tasks);  // return a copy to maintain encapsulation
+        return new ArrayList<>(tasks); // return a copy to maintain encapsulation
     }
 
     /**

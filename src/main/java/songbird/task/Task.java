@@ -14,8 +14,8 @@ import java.io.Serializable;
 public abstract class Task implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
-    protected final TaskType TASK_TYPE;
-    protected final String DESCRIPTION;
+    protected final TaskType taskType;
+    protected final String description;
     protected boolean isDone;
 
     /**
@@ -25,8 +25,8 @@ public abstract class Task implements Serializable {
      * @param description The description of the Task.
      */
     public Task(TaskType taskType, String description) {
-        TASK_TYPE = taskType;
-        DESCRIPTION = description;
+        this.taskType = taskType;
+        this.description = description;
         isDone = false;
     }
 
@@ -53,6 +53,6 @@ public abstract class Task implements Serializable {
     @Override
     public String toString() {
         String statusIcon = this.isDone ? "X" : " ";
-        return "[" + statusIcon + "] " + this.DESCRIPTION;
+        return "[" + statusIcon + "] " + this.description;
     }
 }
