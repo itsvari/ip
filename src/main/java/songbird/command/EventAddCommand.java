@@ -1,5 +1,7 @@
 package songbird.command;
 
+import java.time.LocalDateTime;
+
 import songbird.task.EventTask;
 import songbird.task.Task;
 import songbird.task.TaskList;
@@ -19,15 +21,18 @@ import songbird.ui.Ui;
 public class EventAddCommand extends Command {
     private final String taskDescription;
     private final TaskList tasks;
-    private final String eventStart;
-    private final String eventEnd;
+    private final LocalDateTime eventStart;
+    private final LocalDateTime eventEnd;
 
     /**
-     * Constructor for the TaskAddCommand class. Initializes the command with the given task description.
+     * Constructor for the EventAddCommand class. Initializes the command with the given task description.
      *
-     * @param taskDescription The description of the task to be added.
+     * @param tasks           The TaskList instance to which the task is to be added.
+     * @param taskDescription The description of the event task to be added.
+     * @param eventStart      The starting time of the event task.
+     * @param eventEnd        The ending time of the event task.
      */
-    public EventAddCommand(TaskList tasks, String taskDescription, String eventStart, String eventEnd) {
+    public EventAddCommand(TaskList tasks, String taskDescription, LocalDateTime eventStart, LocalDateTime eventEnd) {
         super(CommandType.EVENT, "event", "Adds a new Event task to the task list.");
         this.tasks = tasks;
         this.taskDescription = taskDescription;

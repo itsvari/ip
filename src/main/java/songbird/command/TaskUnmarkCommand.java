@@ -19,7 +19,7 @@ public class TaskUnmarkCommand extends Command {
      * Constructor for the UnmarkCommand class.
      * Initializes the Unmark command with the type, friendly name, and description.
      *
-     * @param taskIndex The index of the task to be marked as not done.
+     * @param taskIndex The index of the task to be marked as not done, 0-indexed.
      */
     public TaskUnmarkCommand(TaskList tasks, int taskIndex) {
         super(CommandType.UNMARK, "unmark", "Marks a task as not done.");

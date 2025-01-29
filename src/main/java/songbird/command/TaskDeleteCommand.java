@@ -23,7 +23,7 @@ public class TaskDeleteCommand extends Command {
      */
     public TaskDeleteCommand(TaskList tasks, int taskIndex) {
         super(CommandType.DELETE, "delete", "Deletes a task from the task list.");
-        this.taskIndex = taskIndex - 1; // Convert to 0-based index
+        this.taskIndex = taskIndex;
         this.tasks = tasks;
     }
 
