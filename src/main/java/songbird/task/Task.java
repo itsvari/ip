@@ -1,5 +1,8 @@
 package songbird.task;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 /**
  * Represents a Task that the user wants to save.
  * <p>
@@ -8,7 +11,9 @@ package songbird.task;
  * @author Ashe Low
  * @version CS2103T AY24/25 Semester 2
  */
-public abstract class Task {
+public abstract class Task implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
     protected final TaskType TASK_TYPE;
     protected final String DESCRIPTION;
     protected boolean isDone;
