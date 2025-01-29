@@ -48,7 +48,8 @@ public class UiTest {
             We know exactly what you're thinking. Don't worry, we won't judge.
             --------------------
             """;
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(normalizeLineEndings(expectedOutput.trim()),
+                normalizeLineEndings(outputStreamCaptor.toString().trim()));
     }
 
     /**
@@ -76,7 +77,8 @@ public class UiTest {
     public void testRespond() {
         Ui.respond("Hello", "World");
         String expectedOutput = "S> Hello\nS> World";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(normalizeLineEndings(expectedOutput.trim()),
+                normalizeLineEndings(outputStreamCaptor.toString().trim()));
     }
 
     /**
@@ -90,6 +92,19 @@ public class UiTest {
     public void testError() {
         Ui.error("An error occurred", "Another error occurred");
         String expectedOutput = "S> ERROR :: An error occurred\nS> ERROR :: Another error occurred";
-        assertEquals(expectedOutput.trim(), outputStreamCaptor.toString().trim());
+        assertEquals(normalizeLineEndings(expectedOutput.trim()),
+                normalizeLineEndings(outputStreamCaptor.toString().trim()));
+    }
+
+    /**
+     * Fixes the line endings in the input string to match the expected line endings.
+     * This is necessary because the line endings in the input string may not match the expected line endings when
+     * running on Windows.
+     *
+     * @param input The input string with potentially incorrect line endings.
+     * @return The input string with corrected line endings.
+     */
+    private String normalizeLineEndings(String input) {
+        return input.replaceAll("\\r\\n", "\n").replaceAll("\\r", "\n");
     }
 }
