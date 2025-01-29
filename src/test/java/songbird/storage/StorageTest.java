@@ -58,8 +58,15 @@ public class StorageTest {
     public void tearDown() {
         File file = testFilePath.toFile();
         if (file.exists()) {
-            boolean deleted = file.delete();
-            assertTrue(deleted, "Failed to delete test file during tearDown: " + testFilePath);
+            try {
+                // Ensure file handle is released by forcing GC and waiting a bit
+                System.gc();
+                Thread.sleep(100);
+                boolean deleted = file.delete();
+                assertTrue(deleted, "Failed to delete test file during tearDown: " + testFilePath);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
