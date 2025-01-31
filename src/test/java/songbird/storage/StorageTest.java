@@ -1,14 +1,9 @@
 package songbird.storage;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-import songbird.exception.SongbirdStorageException;
-import songbird.task.DeadlineTask;
-import songbird.task.EventTask;
-import songbird.task.Task;
-import songbird.task.ToDoTask;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -18,7 +13,16 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import songbird.exception.SongbirdStorageException;
+import songbird.task.DeadlineTask;
+import songbird.task.EventTask;
+import songbird.task.Task;
+import songbird.task.ToDoTask;
 
 /**
  * Tests the Storage class in the songbird.storage package.
@@ -54,8 +58,15 @@ public class StorageTest {
     public void tearDown() {
         File file = testFilePath.toFile();
         if (file.exists()) {
-            boolean deleted = file.delete();
-            assertTrue(deleted, "Failed to delete test file during tearDown: " + testFilePath);
+            try {
+                // Ensure file handle is released by forcing GC and waiting a bit
+                System.gc();
+                Thread.sleep(100);
+                boolean deleted = file.delete();
+                assertTrue(deleted, "Failed to delete test file during tearDown: " + testFilePath);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
         }
     }
 
@@ -269,7 +280,8 @@ public class StorageTest {
         Path directoryPath = tempDir.resolve("test_directory");
         File directory = directoryPath.toFile();
         boolean dirsCreated = directory.mkdirs();
-        assertTrue(dirsCreated, "Failed to create test directory for testLoad_whenFilePathIsDirectory_returnsEmptyList.");
+        assertTrue(dirsCreated,
+                "Failed to create test directory for testLoad_whenFilePathIsDirectory_returnsEmptyList.");
 
         Storage directoryStorage = new Storage(directoryPath.toString());
 

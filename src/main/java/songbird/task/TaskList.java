@@ -106,7 +106,7 @@ public class TaskList {
      * @return A copy of the task list.
      */
     List<Task> getAll() {
-        return new ArrayList<>(tasks);  // return a copy to maintain encapsulation
+        return new ArrayList<>(tasks); // return a copy to maintain encapsulation
     }
 
     /**
@@ -151,6 +151,19 @@ public class TaskList {
                     // ignore other task types
                     return false;
                 })
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns tasks that contain the specified keyword in their description (case-insensitive).
+     * If there are no tasks that match the criteria, an empty list is returned.
+     *
+     * @param keyword The keyword to search for in the task descriptions.
+     * @return A list of tasks that contain the specified keyword.
+     */
+    public List<Task> getTasksByKeyword(String keyword) {
+        return this.tasks.stream()
+                .filter(task -> task.getDescription().toLowerCase().contains(keyword.toLowerCase()))
                 .collect(Collectors.toList());
     }
 

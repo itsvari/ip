@@ -1,14 +1,14 @@
 package songbird.task;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DeadlineTaskTest {
     private DeadlineTask deadlineTask;
@@ -21,8 +21,8 @@ public class DeadlineTaskTest {
 
     @Test
     public void testConstructor() {
-        assertEquals("Submit report", deadlineTask.DESCRIPTION);
-        assertEquals(TaskType.DEADLINE, deadlineTask.TASK_TYPE);
+        assertEquals("Submit report", deadlineTask.description);
+        assertEquals(TaskType.DEADLINE, deadlineTask.taskType);
         assertEquals(deadline, deadlineTask.getDeadline());
         assertFalse(deadlineTask.isDone);
     }

@@ -10,34 +10,34 @@ package songbird.command;
  * @version CS2103T AY24/25 Semester 2
  */
 public abstract class Command {
-    private final CommandType TYPE;
-    private final String FRIENDLY_NAME;
-    private final String DESCRIPTION;
+    private final CommandType commandType;
+    private final String friendlyName;
+    private final String description;
 
     /**
      * Constructor for the Command class. Initializes the command with the given type, friendly name, and description.
      *
-     * @param type         The type of the command.
+     * @param commandType  The type of the command.
      * @param friendlyName The friendly name of the command, shown to the user.
      * @param description  The description of the command, shown to the user.
      */
-    public Command(CommandType type, String friendlyName, String description) {
-        this.TYPE = type;
-        this.FRIENDLY_NAME = friendlyName;
-        this.DESCRIPTION = description;
+    public Command(CommandType commandType, String friendlyName, String description) {
+        this.commandType = commandType;
+        this.friendlyName = friendlyName;
+        this.description = description;
     }
 
     // GETTERS
     public CommandType getType() {
-        return TYPE;
+        return commandType;
     }
 
     public String getFriendlyName() {
-        return FRIENDLY_NAME;
+        return friendlyName;
     }
 
     public String getDescription() {
-        return DESCRIPTION;
+        return description;
     }
 
     // ABSTRACT METHODS

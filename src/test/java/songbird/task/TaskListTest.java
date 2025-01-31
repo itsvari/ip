@@ -1,7 +1,15 @@
 package songbird.task;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.anyList;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -238,7 +246,7 @@ public class TaskListTest {
      * Verifies that an empty list is returned.
      */
     @Test
-    public void testGetTasksByDate_NoTasks() {
+    public void testGetTasksByDate_noTasks() {
         // Arrange
         LocalDate date = LocalDate.now();
 
@@ -254,7 +262,7 @@ public class TaskListTest {
      * Verifies that ToDoTasks are not included in date-filtered results.
      */
     @Test
-    public void testGetTasksByDate_OnlyToDoTasks() {
+    public void testGetTasksByDate_onlyToDoTasks() {
         // Arrange
         taskList.addTask(new ToDoTask("Read a book"));
         taskList.addTask(new ToDoTask("Write code"));
@@ -272,7 +280,7 @@ public class TaskListTest {
      * Verifies that matching deadline tasks are included in results.
      */
     @Test
-    public void testGetTasksByDate_DeadlineTaskMatchingDate() {
+    public void testGetTasksByDate_deadlineTaskMatchingDate() {
         // Arrange
         LocalDateTime deadline = LocalDateTime.of(2025, 10, 30, 23, 59);
         DeadlineTask deadlineTask = new DeadlineTask("Submit report", deadline);
@@ -293,7 +301,7 @@ public class TaskListTest {
      * The target date is set to the day after the deadline.
      */
     @Test
-    public void testGetTasksByDate_DeadlineTaskNonMatchingDate() {
+    public void testGetTasksByDate_deadlineTaskNonMatchingDate() {
         // Arrange
         LocalDateTime deadline = LocalDateTime.of(2025, 10, 30, 23, 59);
         DeadlineTask deadlineTask = new DeadlineTask("Submit report", deadline);
@@ -314,7 +322,7 @@ public class TaskListTest {
      * The EventTask spans from 2pm to 4pm on the target date.
      */
     @Test
-    public void testGetTasksByDate_EventTaskOverlappingDate() {
+    public void testGetTasksByDate_eventTaskOverlappingDate() {
         // Arrange
         LocalDateTime start = LocalDateTime.of(2025, 9, 30, 14, 0);
         LocalDateTime end = LocalDateTime.of(2025, 9, 30, 16, 0);
@@ -335,7 +343,7 @@ public class TaskListTest {
      * Verifies correct handling of multi-day events.
      */
     @Test
-    public void testGetTasksByDate_EventTaskSpanningMultipleDays() {
+    public void testGetTasksByDate_eventTaskSpanningMultipleDays() {
         // Arrange
         LocalDateTime start = LocalDateTime.of(2025, 12, 31, 22, 0);
         LocalDateTime end = LocalDateTime.of(2026, 1, 1, 2, 0);
@@ -365,7 +373,7 @@ public class TaskListTest {
      * Verifies correct filtering of tasks based on date criteria.
      */
     @Test
-    public void testGetTasksByDate_MixedTasks() {
+    public void testGetTasksByDate_mixedTasks() {
         // Arrange
         // ToDoTask - should not be included
         Task todo = new ToDoTask("Read a book");
@@ -530,5 +538,83 @@ public class TaskListTest {
         // Assert
         assertEquals(1, taskList.getSize(),
                 "Modifying the returned list should not affect the original TaskList.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword when the list is empty.
+     * Verifies that an empty list is returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_noTasks() {
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("book");
+
+        // Assert
+        assertTrue(tasksWithKeyword.isEmpty(),
+                "getTasksByKeyword should return an empty list when there are no tasks.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with no matching tasks.
+     * Verifies that an empty list is returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_noMatchingTasks() {
+        // Arrange
+        taskList.addTask(new ToDoTask("Read a book"));
+        taskList.addTask(new ToDoTask("Write code"));
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("exercise");
+
+        // Assert
+        assertTrue(tasksWithKeyword.isEmpty(),
+                "getTasksByKeyword should return an empty list when there are no matching tasks.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with matching tasks.
+     * Verifies that the correct tasks are returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_matchingTasks() {
+        // Arrange
+        Task task1 = new ToDoTask("Read a book");
+        Task task2 = new ToDoTask("Write code");
+        Task task3 = new ToDoTask("Read another book");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addTask(task3);
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("book");
+
+        // Assert
+        assertEquals(2, tasksWithKeyword.size(), "getTasksByKeyword should return two tasks.");
+        assertTrue(tasksWithKeyword.contains(task1), "The list should contain the first task.");
+        assertTrue(tasksWithKeyword.contains(task3), "The list should contain the third task.");
+    }
+
+    /**
+     * Tests retrieving tasks by keyword with case-insensitive matching.
+     * Verifies that the correct tasks are returned.
+     */
+    @Test
+    public void testGetTasksByKeyword_caseInsensitive() {
+        // Arrange
+        Task task1 = new ToDoTask("Read a Book");
+        Task task2 = new ToDoTask("Write code");
+        Task task3 = new ToDoTask("Read another book");
+        taskList.addTask(task1);
+        taskList.addTask(task2);
+        taskList.addTask(task3);
+
+        // Act
+        List<Task> tasksWithKeyword = taskList.getTasksByKeyword("BOOK");
+
+        // Assert
+        assertEquals(2, tasksWithKeyword.size(), "getTasksByKeyword should return two tasks.");
+        assertTrue(tasksWithKeyword.contains(task1), "The list should contain the first task.");
+        assertTrue(tasksWithKeyword.contains(task3), "The list should contain the third task.");
     }
 }
