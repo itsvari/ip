@@ -6,21 +6,20 @@ import songbird.task.ToDoTask;
 import songbird.ui.Ui;
 
 /**
- * Represents a command that adds a ToDo task to the task list.
- * The ToDoAdd command is used to add a ToDo task to the task list.
- * The command requires additional input from the user, which is the description of the ToDo task to be added.
+ * Represents a command that adds a ToDoTask to the task list.
+ * The ToDoAdd command is used to add a ToDoTask to the task list.
+ * The command requires additional input from the user, which is the description of the ToDoTask to be added.
  *
  * @author Ashe Low
  * @version CS2103T AY24/25 Semester 2
- * @see Command
- * @see ToDoTask
  */
 public class ToDoAddCommand extends Command {
     private final String taskDescription;
     private final TaskList tasks;
 
     /**
-     * Constructor for the TaskAddCommand class. Initializes the command with the given task description.
+     * Constructs the TaskAddCommand class.
+     * Initializes the command with the given task description.
      *
      * @param taskDescription The description of the task to be added.
      */
@@ -32,7 +31,7 @@ public class ToDoAddCommand extends Command {
 
     /**
      * Executes the ToDoAdd command.
-     * Adds a new ToDo task to the task list and provides the user with a response.
+     * Adds a new ToDoTask to the task list and provides the user with a response.
      */
     @Override
     public void execute() {

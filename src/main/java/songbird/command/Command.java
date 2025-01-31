@@ -15,7 +15,8 @@ public abstract class Command {
     private final String description;
 
     /**
-     * Constructor for the Command class. Initializes the command with the given type, friendly name, and description.
+     * Constructs the Command class.
+     * Initializes the command with the given type, friendly name, and description.
      *
      * @param commandType  The type of the command.
      * @param friendlyName The friendly name of the command, shown to the user.

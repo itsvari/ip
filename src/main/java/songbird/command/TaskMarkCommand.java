@@ -16,7 +16,7 @@ public class TaskMarkCommand extends Command {
     private final int taskIndex;
 
     /**
-     * Constructor for the MarkCommand class.
+     * Constructs the MarkCommand class.
      * Initializes the Mark command with the type, friendly name, and description.
      *
      * @param taskIndex The index of the task to be marked as done, 0-indexed.

@@ -25,7 +25,8 @@ public class EventAddCommand extends Command {
     private final LocalDateTime eventEnd;
 
     /**
-     * Constructor for the EventAddCommand class. Initializes the command with the given task description.
+     * Constructs the EventAddCommand class.
+     * Initializes the command with the given task description.
      *
      * @param tasks           The TaskList instance to which the task is to be added.
      * @param taskDescription The description of the event task to be added.

@@ -8,7 +8,8 @@ package songbird.exception;
  */
 public class SongbirdException extends Exception {
     /**
-     * Constructor for the SongbirdException class. Initializes the exception with the given message.
+     * Constructs the SongbirdException class.
+     * Initializes the exception with the given message.
      *
      * @param message The message to be displayed when the exception is thrown.
      */

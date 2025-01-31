@@ -30,7 +30,7 @@ public class Parser {
     private final TaskList tasks;
 
     /**
-     * Constructor for the Parser class.
+     * Constructs the Parser class.
      *
      * @param tasks The TaskList object that stores the user's tasks.
      */

@@ -8,7 +8,7 @@ package songbird.exception;
  */
 public class SongbirdInvalidCommandException extends SongbirdException {
     /**
-     * Constructor for the SongbirdInvalidCommandException class.
+     * Constructs the SongbirdInvalidCommandException class.
      * Initializes the exception with a default message.
      */
     public SongbirdInvalidCommandException() {
