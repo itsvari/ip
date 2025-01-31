@@ -23,7 +23,7 @@ public class Songbird {
     private TaskList tasks;
 
     /**
-     * Constructor for the Songbird chatbot.
+     * Constructs the Songbird chatbot.
      */
     public Songbird() {
         try {
@@ -45,7 +45,7 @@ public class Songbird {
     }
 
     /**
-     * Entry point of the Songbird chatbot.
+     * Initializes the Songbird chatbot.
      *
      * @param args Command line arguments.
      */

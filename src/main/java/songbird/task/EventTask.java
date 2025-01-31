@@ -18,7 +18,7 @@ public class EventTask extends Task {
     private final LocalDateTime eventEnd;
 
     /**
-     * Constructor for the EventTask class. Initializes the task with the given description and event time.
+     * Constructs the EventTask class. Initializes the task with the given description and event time.
      *
      * @param description The description of the Event task.
      * @param eventStart  The event starting time of the Event task.

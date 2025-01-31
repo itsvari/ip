@@ -16,7 +16,7 @@ public class TaskDeleteCommand extends Command {
     private final int taskIndex;
 
     /**
-     * Constructor for the TaskDeleteCommand class.
+     * Constructs the TaskDeleteCommand class.
      * Initializes the Delete command with the type, friendly name, and description.
      *
      * @param taskIndex The index of the task to be deleted.

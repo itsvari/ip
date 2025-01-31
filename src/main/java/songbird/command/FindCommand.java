@@ -14,7 +14,8 @@ public class FindCommand extends Command {
     private final TaskList tasks;
 
     /**
-     * Constructor for the FindCommand class. Initializes the command with the given keyword.
+     * Constructs for the FindCommand class.
+     * Initializes the command with the given keyword.
      *
      * @param tasks The task list to search for tasks in.
      * @param keyword The keyword to search for.
@@ -27,7 +28,6 @@ public class FindCommand extends Command {
 
     /**
      * Executes the Find command.
-     * <p>
      * Searches the task list for tasks that contain the keyword. If found, the tasks are displayed to the user.
      * If no tasks are found, a message is displayed to the user.
      */

@@ -16,7 +16,8 @@ public class ListCommand extends Command {
     private final TaskList tasks;
 
     /**
-     * Constructor for the ListCommand class. Initializes the command with the given TaskList.
+     * Constructs the ListCommand class.
+     * Initializes the command with the given TaskList.
      *
      * @param tasks The TaskList to be used by the command.
      */
@@ -27,7 +28,6 @@ public class ListCommand extends Command {
 
     /**
      * Executes the List command.
-     * <p>
      * Prints the list of saved tasks to the user.
      */
     @Override
