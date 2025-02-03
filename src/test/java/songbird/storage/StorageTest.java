@@ -62,8 +62,8 @@ public class StorageTest {
                 // Ensure file handle is released by forcing GC and waiting a bit
                 System.gc();
                 Thread.sleep(100);
-                boolean deleted = file.delete();
-                assertTrue(deleted, "Failed to delete test file during tearDown: " + testFilePath);
+                boolean isDeleted = file.delete();
+                assertTrue(isDeleted, "Failed to delete test file during tearDown: " + testFilePath);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
@@ -78,8 +78,8 @@ public class StorageTest {
     public void testLoad_noExistingFile_returnsEmptyList() {
         File file = testFilePath.toFile();
         if (file.exists()) {
-            boolean deleted = file.delete();
-            assertTrue(deleted,
+            boolean isDeleted = file.delete();
+            assertTrue(isDeleted,
                     "Failed to delete existing test file before testLoad_noExistingFile_returnsEmptyList.");
         }
 
