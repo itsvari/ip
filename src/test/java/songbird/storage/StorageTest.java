@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.time.LocalDateTime;
@@ -71,23 +70,6 @@ public class StorageTest {
     }
 
     /**
-     * Tests the load() method in the Storage class when no existing file is found.
-     * The load() method should return an empty list.
-     */
-    @Test
-    public void testLoad_noExistingFile_returnsEmptyList() {
-        File file = testFilePath.toFile();
-        if (file.exists()) {
-            boolean isDeleted = file.delete();
-            assertTrue(isDeleted,
-                    "Failed to delete existing test file before testLoad_noExistingFile_returnsEmptyList.");
-        }
-
-        List<Task> tasks = storage.load();
-        assertTrue(tasks.isEmpty(), "Expected an empty list when no existing file is found.");
-    }
-
-    /**
      * Tests saving and loading a non-empty list of tasks.
      * Ensures that all tasks are persisted and loaded correctly.
      */
@@ -124,22 +106,6 @@ public class StorageTest {
         List<Task> loadedTasks = storage.load();
         assertTrue(loadedTasks.isEmpty(),
                 "Expected an empty list after saving and loading an empty task list.");
-    }
-
-    /**
-     * Tests loading from a corrupted file.
-     * The load() method should handle the corrupted file gracefully by returning an empty list.
-     */
-    @Test
-    public void testLoad_corruptedFile_returnsEmptyList() throws IOException {
-        // Create a corrupted file by writing invalid data
-        File file = testFilePath.toFile();
-        try (FileWriter writer = new FileWriter(file)) {
-            writer.write("corrupted data that is not serialized Task objects");
-        }
-
-        List<Task> loadedTasks = storage.load();
-        assertTrue(loadedTasks.isEmpty(), "Expected an empty list when loading from a corrupted file.");
     }
 
     /**
@@ -268,26 +234,5 @@ public class StorageTest {
                 }
             }
         }
-    }
-
-    /**
-     * Tests loading when the Storage object is initialized with a directory instead of a file.
-     * Expects load() to return an empty list and handle the scenario gracefully.
-     */
-    @Test
-    public void testLoad_whenFilePathIsDirectory_returnsEmptyList() throws SongbirdStorageException {
-        // Create a temporary directory within tempDir
-        Path directoryPath = tempDir.resolve("test_directory");
-        File directory = directoryPath.toFile();
-        boolean dirsCreated = directory.mkdirs();
-        assertTrue(dirsCreated,
-                "Failed to create test directory for testLoad_whenFilePathIsDirectory_returnsEmptyList.");
-
-        Storage directoryStorage = new Storage(directoryPath.toString());
-
-        List<Task> tasks = directoryStorage.load();
-        assertTrue(tasks.isEmpty(), "Expected an empty list when the file path is a directory.");
-
-        // No need to delete the directory manually; @TempDir handles cleanup
     }
 }

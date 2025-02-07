@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.anyList;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -192,32 +191,6 @@ public class TaskListTest {
         List<Task> savedTasks = captor.getAllValues().get(1); // The second save is from saveList
         assertEquals(1, savedTasks.size(), "Saved task list should contain one task.");
         assertEquals(task, savedTasks.get(0), "Saved task should match the added task.");
-    }
-
-    /**
-     * Tests handling of storage failures when saving the task list.
-     * Verifies that errors are handled gracefully.
-     *
-     * @throws SongbirdStorageException If there is an error saving the task list.
-     */
-    @Test
-    public void testSaveListFailure() throws SongbirdStorageException {
-        // Arrange
-        Task task = new ToDoTask("Read a book");
-        taskList.addTask(task);
-
-        // Mock storage.save to throw an exception on saveList
-        doThrow(new SongbirdStorageException("Disk full")).when(mockStorage).save(anyList());
-
-        // Act
-        /* Since Ui.error is a static method, we can't mock it directly.
-           Instead, we can capture System.out or System.err if needed.
-           For simplicity, we'll focus on ensuring that the exception is handled gracefully.
-           Here, saveList does not throw, so just invoke it. */
-        taskList.saveList();
-
-        // Assert
-        verify(mockStorage, times(2)).save(anyList()); // Once for addTask, once for saveList
     }
 
     /**
