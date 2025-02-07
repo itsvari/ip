@@ -15,7 +15,7 @@ import songbird.ui.Ui;
  */
 public class Main extends Application {
 
-    private Songbird songbird = new Songbird();
+    private final Songbird songbird = new Songbird();
 
     @Override
     public void start(Stage stage) {
