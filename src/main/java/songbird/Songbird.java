@@ -61,23 +61,15 @@ public class Songbird {
      */
     private void init() {
         ui.greet();
-
-        // show a reminder for tasks due or occurring today
         showTodayReminder();
-        while (true) {
-            String command = ui.readCommand();
+    }
 
-            try {
-                Command commandObject = parser.parse(command);
-                commandObject.execute();
-            } catch (Exception e) {
-                Ui.error(e.getMessage());
-            }
-
-            // check for "bye" command and handle it
-            if (command.equalsIgnoreCase("bye")) {
-                break;
-            }
+    public void getResponse(String input) {
+        try {
+            Command commandObject = parser.parse(input);
+            commandObject.execute();
+        } catch (Exception e) {
+            Ui.error(e.getMessage());
         }
     }
 
