@@ -30,7 +30,7 @@ public class DateTimeParser {
         CONFIGURATION.setTimeZone(ZoneId.systemDefault().getId());
         CONFIGURATION.setMaxParseDate(1); // only parse one date
         // dummy sentence to load parser model into RAM first for faster parsing later
-        PARSER.parse("what are you doing tomorrow?", new Date(), new HawkingConfiguration(),"eng");
+        PARSER.parse("what are you doing tomorrow?", new Date(), new HawkingConfiguration(), "eng");
     }
 
     /**
