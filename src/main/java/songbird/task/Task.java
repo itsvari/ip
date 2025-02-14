@@ -19,7 +19,7 @@ public abstract class Task implements Serializable {
     protected boolean isDone;
 
     /**
-     * Constructor for the Task class.
+     * Constructs the Task class.
      * Initializes the Task with a description, which cannot be changed.
      *
      * @param description The description of the Task.

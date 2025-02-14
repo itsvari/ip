@@ -12,7 +12,7 @@ import songbird.ui.Ui;
  */
 public class ByeCommand extends Command {
     /**
-     * Constructor for the ByeCommand class.
+     * Constructs the Bye command.
      * Initializes the Bye command with the type, friendly name, and description.
      */
     public ByeCommand() {

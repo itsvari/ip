@@ -9,16 +9,31 @@ import songbird.exception.SongbirdInvalidCommandException;
  * @version CS2103T AY24/25 Semester 2
  */
 public enum CommandType {
-    BYE,
-    LIST,
-    TODO,
-    DEADLINE,
-    EVENT,
-    MARK,
-    UNMARK,
-    DELETE,
-    DUE,
-    FIND;
+    BYE("bye"),
+    LIST("list"),
+    TODO("todo"),
+    DEADLINE("deadline"),
+    EVENT("event"),
+    MARK("mark"),
+    UNMARK("unmark"),
+    DELETE("delete"),
+    DUE("due"),
+    FIND("find");
+
+    private final String value;
+
+    /**
+     * Constructs a CommandType with the given string value.
+     *
+     * @param value The string value of the CommandType.
+     */
+    CommandType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
 
     /**
      * Returns the CommandType corresponding to the given string.
@@ -29,18 +44,12 @@ public enum CommandType {
      * @throws SongbirdInvalidCommandException If the string does not match any known type.
      */
     public static CommandType fromString(String command) throws SongbirdInvalidCommandException {
-        return switch (command.toLowerCase()) {
-            case "bye" -> BYE;
-            case "list" -> LIST;
-            case "mark" -> MARK;
-            case "unmark" -> UNMARK;
-            case "todo" -> TODO;
-            case "deadline" -> DEADLINE;
-            case "event" -> EVENT;
-            case "delete" -> DELETE;
-            case "due" -> DUE;
-            case "find" -> FIND;
-            default -> throw new SongbirdInvalidCommandException();
-        };
+        for (CommandType type : CommandType.values()) {
+            if (type.getValue().equalsIgnoreCase(command)) {
+                return type;
+            }
+        }
+
+        throw new SongbirdInvalidCommandException();
     }
 }

@@ -2,6 +2,8 @@ package songbird.ui;
 
 import java.util.Scanner;
 
+import songbird.MainWindow;
+
 /**
  * Handles the user interface of the Songbird chatbot, including input and output.
  *
@@ -16,6 +18,8 @@ public class Ui {
              ___/ / /_/ / / / / /_/ / /_/ / / /  / /_/ /
             /____/\\____/_/ /_/\\__, /_.___/_/_/   \\__,_/
                              /____/""";
+    private static MainWindow mainWindow;
+    private static String currentUserInput = null;
     private final Scanner input = new Scanner(System.in);
 
     /**
@@ -24,32 +28,47 @@ public class Ui {
      * the program.
      */
     public void greet() {
-        System.out.println(ASCII_ART_LOGO);
-        System.out.println("Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.");
-        System.out.println("We know exactly what you're thinking. Don't worry, we won't judge.");
-        System.out.println("--------------------");
+        respond(ASCII_ART_LOGO,
+                "Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.",
+                "We know exactly what you're thinking. Don't worry, we won't judge.");
     }
 
     /**
-     * Reads the user's command from the console input.
+     * Sets the MainWindow for the Ui to respond to.
      *
-     * @return The user's command.
+     * @param window The MainWindow to respond to.
      */
-    public String readCommand() {
-        return input.nextLine();
+    public static void setMainWindow(MainWindow window) {
+        mainWindow = window;
+    }
+
+    /**
+     * Store's the user's input for later use.
+     *
+     * @param input The user's input.
+     */
+    public static void setCurrentUserInput(String input) {
+        currentUserInput = input;
     }
 
     /**
      * Responds to the user with the given messages.
      * <p>
-     * Each message is printed on a new line and prefixed with "S> ".
-     * Takes in a variable number of messages to respond with, which are printed in the order they are provided.
+     * Calls the MainWindow to display the messages. This is an MVP solution and should be refactored
+     * with a more elegant solution in the future.
      *
      * @param messages The messages to respond with.
      */
     public static void respond(String... messages) {
+        // if there's stored user input, display it first
+        if (currentUserInput != null) {
+            mainWindow.handleUserDialog(currentUserInput);
+            currentUserInput = null; // clear stored input
+        }
+
+        // display response messages
         for (String message : messages) {
-            System.out.println("S> " + message);
+            mainWindow.handleSongbirdResponse(message);
         }
     }
 
