@@ -1,6 +1,5 @@
 package songbird.parser;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import songbird.command.ByeCommand;
@@ -223,7 +222,7 @@ public class Parser {
         if (parameters.isBlank()) {
             throw new SongbirdMalformedCommandException("You must specify a date, e.g. 'due 2025-01-17'.");
         }
-        LocalDate date = DateTimeParser.parseDate(parameters);
+        LocalDateTime date = DateTimeParser.parseDateTime(parameters);
         return new DueCommand(tasks, date);
     }
 }
