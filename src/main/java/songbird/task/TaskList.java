@@ -140,15 +140,13 @@ public class TaskList {
     public List<Task> getTasksByDate(LocalDate date) {
         return this.tasks.stream()
                 .filter(task -> {
-                    if (task instanceof DeadlineTask dt) {
-                        return dt.getDeadline().toLocalDate().isEqual(date);
-                    } else if (task instanceof EventTask et) {
-                        LocalDate start = et.getEventStart().toLocalDate();
-                        LocalDate end = et.getEventEnd().toLocalDate();
-                        // check if current date is between start and end (inclusive)
+                    if (task instanceof DeadlineTask deadlineTask) {
+                        return deadlineTask.getDeadline().toLocalDate().isEqual(date);
+                    } else if (task instanceof EventTask eventTask) {
+                        LocalDate start = eventTask.getEventStart().toLocalDate();
+                        LocalDate end = eventTask.getEventEnd().toLocalDate();
                         return !date.isBefore(start) && !date.isAfter(end);
                     }
-                    // ignore other task types
                     return false;
                 })
                 .collect(Collectors.toList());
