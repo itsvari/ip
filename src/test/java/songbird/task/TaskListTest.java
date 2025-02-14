@@ -221,7 +221,7 @@ public class TaskListTest {
     @Test
     public void testGetTasksByDate_noTasks() {
         // Arrange
-        LocalDate date = LocalDate.now();
+        LocalDateTime date = LocalDateTime.now();
 
         // Act
         List<Task> tasksOnDate = taskList.getTasksByDate(date);
@@ -239,7 +239,7 @@ public class TaskListTest {
         // Arrange
         taskList.addTask(new ToDoTask("Read a book"));
         taskList.addTask(new ToDoTask("Write code"));
-        LocalDate date = LocalDate.now();
+        LocalDateTime date = LocalDateTime.now();
 
         // Act
         List<Task> tasksOnDate = taskList.getTasksByDate(date);
@@ -258,10 +258,9 @@ public class TaskListTest {
         LocalDateTime deadline = LocalDateTime.of(2025, 10, 30, 23, 59);
         DeadlineTask deadlineTask = new DeadlineTask("Submit report", deadline);
         taskList.addTask(deadlineTask);
-        LocalDate targetDate = deadline.toLocalDate();
 
         // Act
-        List<Task> tasksOnDate = taskList.getTasksByDate(targetDate);
+        List<Task> tasksOnDate = taskList.getTasksByDate(deadline);
 
         // Assert
         assertEquals(1, tasksOnDate.size(), "There should be one task matching the deadline date.");
@@ -279,7 +278,7 @@ public class TaskListTest {
         LocalDateTime deadline = LocalDateTime.of(2025, 10, 30, 23, 59);
         DeadlineTask deadlineTask = new DeadlineTask("Submit report", deadline);
         taskList.addTask(deadlineTask);
-        LocalDate targetDate = deadline.toLocalDate().plusDays(1); // Next day
+        LocalDateTime targetDate = deadline.plusDays(1); // Next day
 
         // Act
         List<Task> tasksOnDate = taskList.getTasksByDate(targetDate);
@@ -301,7 +300,7 @@ public class TaskListTest {
         LocalDateTime end = LocalDateTime.of(2025, 9, 30, 16, 0);
         EventTask eventTask = new EventTask("Attend conference", start, end);
         taskList.addTask(eventTask);
-        LocalDate targetDate = LocalDate.of(2025, 9, 30);
+        LocalDateTime targetDate = LocalDateTime.of(2025, 9, 30, 0, 0, 0);
 
         // Act
         List<Task> tasksOnDate = taskList.getTasksByDate(targetDate);
@@ -324,19 +323,19 @@ public class TaskListTest {
         taskList.addTask(eventTask);
 
         // Test on the first day
-        LocalDate firstDay = LocalDate.of(2025, 12, 31);
+        LocalDateTime firstDay = LocalDateTime.of(2025, 12, 31, 0, 0, 0);
         List<Task> tasksOnFirstDay = taskList.getTasksByDate(firstDay);
         assertEquals(1, tasksOnFirstDay.size(), "EventTask should be included on the start date.");
         assertTrue(tasksOnFirstDay.contains(eventTask), "The EventTask should be included on the start date.");
 
         // Test on the second day
-        LocalDate secondDay = LocalDate.of(2026, 1, 1);
+        LocalDateTime secondDay = LocalDateTime.of(2026, 1, 1, 0, 0, 0);
         List<Task> tasksOnSecondDay = taskList.getTasksByDate(secondDay);
         assertEquals(1, tasksOnSecondDay.size(), "EventTask should be included on the end date.");
         assertTrue(tasksOnSecondDay.contains(eventTask), "The EventTask should be included on the end date.");
 
         // Test on a day outside the event duration
-        LocalDate outsideDay = LocalDate.of(2026, 1, 2);
+        LocalDateTime outsideDay = LocalDateTime.of(2026, 1, 2, 0, 0, 0);
         List<Task> tasksOnOutsideDay = taskList.getTasksByDate(outsideDay);
         assertTrue(tasksOnOutsideDay.isEmpty(), "EventTask should not be included on a day outside its duration.");
     }
@@ -369,7 +368,7 @@ public class TaskListTest {
         EventTask eventTask2 = new EventTask("Workshop", start2, end2);
         taskList.addTask(eventTask2);
 
-        LocalDate targetDate = LocalDate.of(2025, 10, 30);
+        LocalDateTime targetDate = LocalDateTime.of(2025, 10, 30, 0, 0, 0);
 
         // Act
         List<Task> tasksOnDate = taskList.getTasksByDate(targetDate);

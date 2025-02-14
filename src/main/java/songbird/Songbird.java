@@ -1,6 +1,6 @@
 package songbird;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import songbird.command.Command;
@@ -78,7 +78,7 @@ public class Songbird {
      * initialized.
      */
     private void showTodayReminder() {
-        LocalDate today = LocalDate.now();
+        LocalDateTime today = LocalDateTime.now();
         List<Task> tasksDueToday = tasks.getTasksByDate(today);
 
         if (!tasksDueToday.isEmpty()) {
