@@ -1,6 +1,7 @@
 package songbird.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,15 +138,16 @@ public class TaskList {
      *             The time component of the date is ignored.
      * @return A list of tasks that occur on the specified date.
      */
-    public List<Task> getTasksByDate(LocalDate date) {
+    public List<Task> getTasksByDate(LocalDateTime date) {
+        LocalDate targetDate = date.toLocalDate();
         return this.tasks.stream()
                 .filter(task -> {
                     if (task instanceof DeadlineTask deadlineTask) {
-                        return deadlineTask.getDeadline().toLocalDate().isEqual(date);
+                        return deadlineTask.getDeadline().toLocalDate().isEqual(targetDate);
                     } else if (task instanceof EventTask eventTask) {
                         LocalDate start = eventTask.getEventStart().toLocalDate();
                         LocalDate end = eventTask.getEventEnd().toLocalDate();
-                        return !date.isBefore(start) && !date.isAfter(end);
+                        return !targetDate.isBefore(start) && !targetDate.isAfter(end);
                     }
                     return false;
                 })

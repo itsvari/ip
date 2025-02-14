@@ -1,6 +1,6 @@
 package songbird.command;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import songbird.task.Task;
@@ -15,7 +15,7 @@ import songbird.ui.Ui;
  */
 public class DueCommand extends Command {
     private final TaskList tasks;
-    private final LocalDate date;
+    private final LocalDateTime date;
 
     /**
      * Constructs a new DueCommand with the specified date.
@@ -23,7 +23,7 @@ public class DueCommand extends Command {
      * @param tasks The TaskList instance to be used by the DueCommand.
      * @param date  The date to filter tasks by.
      */
-    public DueCommand(TaskList tasks, LocalDate date) {
+    public DueCommand(TaskList tasks, LocalDateTime date) {
         super(CommandType.DUE, "due", "Lists tasks that are due on a specified date.");
         this.tasks = tasks;
         this.date = date;
