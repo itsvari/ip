@@ -11,7 +11,8 @@ repositories {
 }
 
 dependencies {
-    implementation('io.github.mkpaz:atlantafx-base:2.0.1')
+    implementation 'com.zoho:hawking:0.1.9'
+    implementation 'io.github.mkpaz:atlantafx-base:2.0.1'
 
     String javaFxVersion = '17.0.7'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
