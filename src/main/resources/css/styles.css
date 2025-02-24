@@ -1,0 +1,47 @@
+HBox > .card.user-message {
+    -fx-background-color: -color-accent-subtle;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 1, 1);
+    -fx-border-color: -color-accent-emphasis;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-alignment: top-left;
+}
+
+HBox > .card.songbird-message {
+    -fx-background-color: -color-neutral-muted;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 4, 0, 1, 1);
+    -fx-border-color: -color-neutral-emphasis;
+    -fx-border-width: 1;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-alignment: top-left;
+}
+
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+#dialogContainer {
+    -fx-padding: 10;
+    -fx-fit-to-width: true;
+}
+
+.label {
+    -fx-wrap-text: true;
+}
+
+.tile {
+    -fx-background-color: transparent;
+}
+
+.profile-picture {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 4, 0, 0, 0);
+    -fx-background-color: white;
+    -fx-background-radius: 50%;
+}

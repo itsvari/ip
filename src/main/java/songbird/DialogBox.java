@@ -3,6 +3,7 @@ package songbird;
 import java.io.IOException;
 import java.util.Collections;
 
+import atlantafx.base.controls.Card;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * Represents a dialog box consisting of an ImageView to represent the speaker's face
@@ -23,8 +25,10 @@ public class DialogBox extends HBox {
     private Label dialog;
     @FXML
     private ImageView displayPicture;
+    @FXML
+    private Card card;
 
-    private DialogBox(String text, Image img) {
+    private DialogBox(String text, Image img, boolean isUser) {
         assert text != null : "Dialog text should not be null";
         assert img != null : "Dialog image should not be null";
 
@@ -39,6 +43,19 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        // make the ImageView circular
+        makeImageViewCircular(displayPicture);
+
+        // Apply different styles based on whether it's a user or Songbird message
+        if (isUser) {
+            card.getStyleClass().add("user-message");
+        } else {
+            card.getStyleClass().add("songbird-message");
+        }
+
+        // Bind the Label's preferred width to the Card's width
+        dialog.prefWidthProperty().bind(card.widthProperty().subtract(10));
     }
 
     /**
@@ -51,12 +68,21 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    /**
+     * Makes the ImageView circular.
+     * @param imageView The ImageView to make circular.
+     */
+    private void makeImageViewCircular(ImageView imageView) {
+        Circle clip = new Circle(25, 25, 25);
+        imageView.setClip(clip);
+    }
+
     public static DialogBox getUserDialog(String s, Image i) {
-        return new DialogBox(s, i);
+        return new DialogBox(s, i, true);
     }
 
     public static DialogBox getSongbirdDialog(String s, Image i) {
-        var db = new DialogBox(s, i);
+        var db = new DialogBox(s, i, false);
         db.flip();
         return db;
     }

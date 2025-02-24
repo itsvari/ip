@@ -1,6 +1,6 @@
 package songbird;
 
-import java.io.IOException;
+import java.util.Objects;
 
 import atlantafx.base.theme.CupertinoDark;
 import javafx.application.Application;
@@ -25,9 +25,14 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
 
             Scene scene = new Scene(ap);
+
+            scene.getStylesheets().add(Objects.requireNonNull(
+                    getClass().getResource("/css/styles.css")).toExternalForm());
+
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setMaxWidth(1000);
             stage.setTitle("Songbird");
 
             MainWindow mainWindow = fxmlLoader.getController();
@@ -36,7 +41,7 @@ public class Main extends Application {
 
             stage.show();
             songbird.sendInitialResponses();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
