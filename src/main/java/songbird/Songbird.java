@@ -29,7 +29,6 @@ public class Songbird {
      */
     public Songbird() {
         try {
-            this.ui = new Ui();
             Storage storage = new Storage("./data/tasklistDB");
             List<Task> loadedTasks = storage.load();
 
@@ -40,8 +39,7 @@ public class Songbird {
             tasks = new TaskList(loadedTasks, storage);
             this.parser = new Parser(tasks);
         } catch (SongbirdStorageException e) {
-            Ui.error("Failed to initialize storage: " + e.getMessage());
-            System.exit(1);
+            initialResponses.add("Failed to initialize storage: " + e.getMessage());
         }
     }
 
@@ -52,7 +50,6 @@ public class Songbird {
      */
     public static void main(String[] args) {
         Songbird songbird = new Songbird();
-        songbird.init();
     }
 
     /**
@@ -61,6 +58,7 @@ public class Songbird {
      * This method should be called once at the start of the program.
      */
     private void init() {
+        this.ui = new Ui();
         initialResponses.add(ui.getGreeting());
         showTodayReminder();
     }
@@ -96,6 +94,7 @@ public class Songbird {
      * Sends the initial stored responses to the UI after it has been initialized.
      */
     public void sendInitialResponses() {
+        init();
         initialResponses.forEach(Ui::respond);
     }
 }

@@ -23,16 +23,18 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setSongbird(songbird);
             Ui.setMainWindow(mainWindow);
-            songbird.sendInitialResponses();
-            Ui ui = new Ui();
+
             stage.show();
+            songbird.sendInitialResponses();
         } catch (IOException e) {
             e.printStackTrace();
         }
