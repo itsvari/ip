@@ -11,13 +11,6 @@ import songbird.MainWindow;
  * @version CS2103T AY24/25 Semester 2
  */
 public class Ui {
-    private static final String ASCII_ART_LOGO = """
-               _____                   __    _          __
-              / ___/____  ____  ____ _/ /_  (_)________/ /
-              \\__ \\/ __ \\/ __ \\/ __ `/ __ \\/ / ___/ __  /
-             ___/ / /_/ / / / / /_/ / /_/ / / /  / /_/ /
-            /____/\\____/_/ /_/\\__, /_.___/_/_/   \\__,_/
-                             /____/""";
     private static MainWindow mainWindow;
     private static String currentUserInput = null;
     private final Scanner input = new Scanner(System.in);
@@ -30,8 +23,7 @@ public class Ui {
      * @return The greeting message.
      */
     public String getGreeting() {
-        return ASCII_ART_LOGO + "\n"
-                + "Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.\n"
+        return "Welcome to Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.\n"
                 + "We know exactly what you're thinking. Don't worry, we won't judge.";
     }
 
