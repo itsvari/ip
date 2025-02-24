@@ -26,11 +26,13 @@ public class Ui {
      * Greets the user with the Songbird logo and a welcome message.
      * This method should be called once at the start of
      * the program.
+     *
+     * @return The greeting message.
      */
-    public void greet() {
-        respond(ASCII_ART_LOGO,
-                "Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.",
-                "We know exactly what you're thinking. Don't worry, we won't judge.");
+    public String getGreeting() {
+        return ASCII_ART_LOGO + "\n"
+                + "Songbird(TM) AI by VariTech Heavy Industries, (C) 3025. All rights reserved.\n"
+                + "We know exactly what you're thinking. Don't worry, we won't judge.";
     }
 
     /**

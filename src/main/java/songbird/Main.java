@@ -30,6 +30,8 @@ public class Main extends Application {
             MainWindow mainWindow = fxmlLoader.getController();
             mainWindow.setSongbird(songbird);
             Ui.setMainWindow(mainWindow);
+            songbird.sendInitialResponses();
+            Ui ui = new Ui();
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

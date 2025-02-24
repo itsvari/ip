@@ -1,6 +1,7 @@
 package songbird;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import songbird.command.Command;
@@ -18,6 +19,7 @@ import songbird.ui.Ui;
  * @version CS2103T AY24/25 Semester 2
  */
 public class Songbird {
+    private final List<String> initialResponses = new ArrayList<>();
     private Ui ui;
     private Parser parser;
     private TaskList tasks;
@@ -31,9 +33,8 @@ public class Songbird {
             Storage storage = new Storage("./data/tasklistDB");
             List<Task> loadedTasks = storage.load();
 
-            // provide an update if tasks exist
             if (!loadedTasks.isEmpty()) {
-                Ui.respond("Found " + loadedTasks.size() + " previously-saved task(s).");
+                initialResponses.add("Found " + loadedTasks.size() + " previously-saved task(s).");
             }
 
             tasks = new TaskList(loadedTasks, storage);
@@ -60,7 +61,7 @@ public class Songbird {
      * This method should be called once at the start of the program.
      */
     private void init() {
-        ui.greet();
+        initialResponses.add(ui.getGreeting());
         showTodayReminder();
     }
 
@@ -89,6 +90,12 @@ public class Songbird {
                 counter++;
             }
         }
+    }
 
+    /**
+     * Sends the initial stored responses to the UI after it has been initialized.
+     */
+    public void sendInitialResponses() {
+        initialResponses.forEach(Ui::respond);
     }
 }
