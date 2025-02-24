@@ -55,7 +55,7 @@ application {
 
 shadowJar {
     archiveBaseName = "songbird"
-    archiveClassifier = "v0.1.0"
+    archiveClassifier = "v0.2.0"
 }
 
 checkstyle {
