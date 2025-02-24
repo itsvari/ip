@@ -31,9 +31,14 @@ public class MainWindow extends AnchorPane {
 
     private Songbird songbird;
 
+    /**
+     * Initializes the MainWindow.
+     * Binds the scrollPane to the dialogContainer and sets the maximum width of the dialogContainer.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.maxWidthProperty().bind(scrollPane.widthProperty().subtract(20));
     }
 
     /** Injects the Duke instance */

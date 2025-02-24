@@ -7,6 +7,7 @@
 <?import atlantafx.base.controls.Card?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.layout.Region?>
 <fx:root alignment="TOP_RIGHT"
          type="javafx.scene.layout.HBox"
          spacing="10.0"
@@ -14,7 +15,8 @@
          xmlns="http://javafx.com/javafx/17"
          xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <Card fx:id="card" HBox.hgrow="ALWAYS" minWidth="200.0" maxWidth="600.0">
+        <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+        <Card fx:id="card" HBox.hgrow="ALWAYS" minWidth="200.0" maxWidth="400.0">
             <body>
                 <VBox spacing="5">
                     <Label fx:id="dialog"

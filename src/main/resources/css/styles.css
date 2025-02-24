@@ -5,7 +5,7 @@ HBox > .card.user-message {
     -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-alignment: top-left;
+    -fx-max-width: 600px;
 }
 
 HBox > .card.songbird-message {
@@ -15,7 +15,13 @@ HBox > .card.songbird-message {
     -fx-border-width: 1;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
-    -fx-alignment: top-left;
+    -fx-max-width: 600px;
+}
+
+#dialogContainer {
+    -fx-padding: 10;
+    -fx-alignment: top-center;
+    -fx-fill-width: true;
 }
 
 .scroll-pane {
@@ -25,11 +31,6 @@ HBox > .card.songbird-message {
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
-}
-
-#dialogContainer {
-    -fx-padding: 10;
-    -fx-fit-to-width: true;
 }
 
 .label {

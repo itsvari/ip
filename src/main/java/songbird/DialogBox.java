@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.shape.Circle;
 
 /**
@@ -27,6 +28,8 @@ public class DialogBox extends HBox {
     private ImageView displayPicture;
     @FXML
     private Card card;
+    @FXML
+    private Region spacer;
 
     private DialogBox(String text, Image img, boolean isUser) {
         assert text != null : "Dialog text should not be null";
@@ -50,8 +53,12 @@ public class DialogBox extends HBox {
         // Apply different styles based on whether it's a user or Songbird message
         if (isUser) {
             card.getStyleClass().add("user-message");
+            setAlignment(Pos.TOP_RIGHT);
+            spacer.setVisible(true);
         } else {
             card.getStyleClass().add("songbird-message");
+            setAlignment(Pos.TOP_LEFT);
+            spacer.setVisible(false);
         }
 
         // Bind the Label's preferred width to the Card's width

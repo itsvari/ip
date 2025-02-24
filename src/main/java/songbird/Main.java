@@ -32,7 +32,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
-            stage.setMaxWidth(1000);
+            stage.setMaxWidth(600);
             stage.setTitle("Songbird");
 
             MainWindow mainWindow = fxmlLoader.getController();
