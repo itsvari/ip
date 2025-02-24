@@ -1,7 +1,5 @@
 package songbird.ui;
 
-import java.util.Scanner;
-
 import songbird.MainWindow;
 
 /**
@@ -13,7 +11,7 @@ import songbird.MainWindow;
 public class Ui {
     private static MainWindow mainWindow;
     private static String currentUserInput = null;
-    private final Scanner input = new Scanner(System.in);
+    private static String bufferedResponse = null;
 
     /**
      * Greets the user with the Songbird logo and a welcome message.
@@ -54,10 +52,22 @@ public class Ui {
      * @param messages The messages to respond with.
      */
     public static void respond(String... messages) {
-        // if there's stored user input, display it first
+        // if there's no MainWindow, buffer the messages until it's ready.
+        if (mainWindow == null) {
+            bufferedResponse = String.join("\n", messages);
+            return;
+        }
+
+        // if there's stored user input, display it first.
         if (currentUserInput != null) {
             mainWindow.handleUserDialog(currentUserInput);
             currentUserInput = null; // clear stored input
+        }
+
+        // if there are buffered messages, display them first.
+        if (bufferedResponse != null) {
+            mainWindow.handleSongbirdResponse(bufferedResponse);
+            bufferedResponse = null; // clear buffered messages
         }
 
         // display response messages
